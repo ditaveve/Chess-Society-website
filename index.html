@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Warwick Chess Society</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* KEEPING YOUR ORIGINAL CSS */
+:root {
+  --navy: #0D1B3E;
+  --navy-mid: #132248;
+  --navy-light: #1C3066;
+  --gold: #C9A84C;
+  --gold-light: #E2C97E;
+  --cream: #F4EFE6;
+  --white: #FFFFFF;
+  --muted: rgba(244,239,230,0.6);
+  --border: rgba(201,168,76,0.25);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body{
+  background:var(--navy);
+  color:var(--cream);
+  font-family:'Lato',sans-serif;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    repeating-conic-gradient(rgba(255,255,255,0.018) 0% 25%, transparent 0% 50%);
+  background-size:60px 60px;
+  pointer-events:none;
+  z-index:0;
+}
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1.2rem 3rem;
+  background:rgba(13,27,62,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:0.8rem;
+  text-decoration:none;
+}
+
+.nav-logo img{
+  width:42px;
+  height:42px;
+}
+
+.nav-logo-text{
+  font-family:'Cinzel',serif;
+  font-size:0.9rem;
+  letter-spacing:0.12em;
+  color:var(--gold);
+}
+
+.nav-links{
+  display:flex;
+  list-style:none;
+  gap:2rem;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:0.75rem;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  transition:0.2s;
+}
+
+.nav-links a:hover{
+  color:var(--gold);
+}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:8rem 2rem 4rem;
+  position:relative;
+  z-index:1;
+}
+
+.hero-logo{
+  width:160px;
+  margin-bottom:2rem;
+}
+
+.hero-eyebrow{
+  font-family:'Cinzel',serif;
+  color:var(--gold);
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,7vw,6rem);
+  font-weight:300;
+  line-height:1;
+  margin-bottom:1rem;
+}
+
+.hero-title em{
+  color:var(--gold-light);
+}
+
+.hero-sub{
+  max-width:650px;
+  line-height:1.8;
+  color:var(--muted);
+  margin-bottom:2rem;
+}
+
+.hero-cta{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.btn-primary,
+.btn-outline{
+  padding:0.9rem 2rem;
+  text-decoration:none;
+  font-family:'Cinzel',serif;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-size:0.75rem;
+  transition:0.2s;
+}
+
+.btn-primary{
+  background:var(--gold);
+  color:var(--navy);
+}
+
+.btn-primary:hover{
+  background:var(--gold-light);
+}
+
+.btn-outline{
+  border:1px solid var(--border);
+  color:var(--cream);
+}
+
+.btn-outline:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+
+section{
+  padding:7rem 2rem;
+  position:relative;
+  z-index:1;
+}
+
+.section-inner{
+  max-width:1100px;
+  margin:auto;
+}
+
+.section-label{
+  color:var(--gold);
+  font-family:'Cinzel',serif;
+  text-transform:uppercase;
+  letter-spacing:0.3em;
+  margin-bottom:1rem;
+  font-size:0.7rem;
+}
+
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,4vw,4rem);
+  font-weight:300;
+  margin-bottom:1rem;
+}
+
+.divider{
+  width:60px;
+  height:1px;
+  background:var(--gold);
+  margin-bottom:2rem;
+}
+
+.about-grid,
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+}
+
+.about-text p{
+  color:var(--muted);
+  line-height:1.9;
+  margin-bottom:1rem;
+}
+
+.about-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.stat-box{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  padding:2rem;
+  text-align:center;
+}
+
+.stat-num{
+  font-size:3rem;
+  color:var(--gold);
+  font-family:'Cormorant Garamond',serif;
+}
+
+.stat-label{
+  color:var(--muted);
+  text-transform:uppercase;
+  font-size:0.7rem;
+  letter-spacing:0.1em;
+}
+
+.committee-section{
+  background:rgba(255,255,255,0.02);
+}
+
+.committee-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;
+}
+
+.member-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  padding:2rem;
+  text-align:center;
+}
+
+.member-avatar{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  margin:auto;
+  margin-bottom:1rem;
+  border:2px solid var(--border);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:1.5rem;
+  color:var(--gold);
+}
+
+.member-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;
+}
+
+.member-role{
+  color:var(--gold);
+  text-transform:uppercase;
+  font-size:0.7rem;
+  letter-spacing:0.1em;
+}
+
+.events-list{
+  border-top:1px solid var(--border);
+}
+
+.event-row{
+  display:grid;
+  grid-template-columns:100px 1fr auto;
+  gap:2rem;
+  align-items:center;
+  padding:2rem 0;
+  border-bottom:1px solid var(--border);
+}
+
+.event-day{
+  font-size:2.5rem;
+  color:var(--gold);
+  font-family:'Cormorant Garamond',serif;
+}
+
+.event-month{
+  text-transform:uppercase;
+  font-size:0.7rem;
+  letter-spacing:0.15em;
+  color:var(--muted);
+}
+
+.event-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;
+}
+
+.event-meta{
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+.event-badge{
+  border:1px solid var(--border);
+  padding:0.4rem 0.8rem;
+  font-size:0.65rem;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.gallery-item{
+  background:var(--navy-light);
+  border:1px solid var(--border);
+  height:240px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:4rem;
+  color:rgba(255,255,255,0.25);
+}
+
+.join-form{
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  padding:2rem;
+}
+
+.form-group{
+  margin-bottom:1rem;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:0.5rem;
+  color:var(--gold);
+  font-size:0.7rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:0.8rem;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);
+  color:var(--cream);
+}
+
+.form-submit{
+  width:100%;
+  padding:1rem;
+  background:var(--gold);
+  border:none;
+  cursor:pointer;
+  font-family:'Cinzel',serif;
+  text-transform:uppercase;
+}
+
+footer{
+  border-top:1px solid var(--border);
+  padding:2rem;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:1;
+}
+
+@media(max-width:800px){
+  .about-grid,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .gallery-grid{
+    grid-template-columns:1fr;
+  }
+
+  .event-row{
+    grid-template-columns:80px 1fr;
+  }
+
+  .event-badge{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg" alt="Chess Logo">
+    <span class="nav-logo-text">Warwick Chess Society</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#committee">Committee</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-logo"
+    src="https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg"
+    alt="Chess Queen">
+
+  <div class="hero-eyebrow">University of Warwick</div>
+
+  <h1 class="hero-title">
+    Strategy. Tradition. <em>Community.</em>
+  </h1>
+
+  <p class="hero-sub">
+    Warwick Chess Society brings together players of every level -
+    from complete beginners to titled competitors - for tournaments,
+    socials, training sessions, and unforgettable games.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Join Society</a>
+    <a href="#events" class="btn-outline">Upcoming Events</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About</div>
+    <h2 class="section-title">A Society Built Around <em>Chess</em></h2>
+    <div class="divider"></div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Founded to create a welcoming environment for players of all
+          abilities, Warwick Chess Society hosts weekly casual games,
+          competitive tournaments, lectures, and inter-university fixtures.
+        </p>
+
+        <p>
+          Whether you're learning how the knight moves or preparing for your
+          next rated tournament, you'll find a strong and supportive community.
+        </p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">150+</div>
+          <div class="stat-label">Members</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-num">24</div>
+          <div class="stat-label">Events Yearly</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Weekly Boards</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Tournament Wins</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMITTEE -->
+<section id="committee" class="committee-section">
+  <div class="section-inner">
+
+    <div class="section-label">Committee</div>
+    <h2 class="section-title">Meet The Team</h2>
+    <div class="divider"></div>
+
+    <div class="committee-grid">
+
+      <div class="member-card">
+        <div class="member-avatar">♔</div>
+        <div class="member-name">Daniel Mckenzie + Magnus Borrisow</div>
+        <div class="member-role">President</div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">♕</div>
+        <div class="member-name">David Cebolla-Ruiz</div>
+        <div class="member-role">Chairperson</div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">♖</div>
+        <div class="member-name">Diana Angheluta</div>
+        <div class="member-role">PR Officer</div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">♘</div>
+        <div class="member-name">Greta Bullman</div>
+        <div class="member-role">Events Officer</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="section-inner">
+
+    <div class="section-label">Events</div>
+    <h2 class="section-title">Upcoming Matches & Socials</h2>
+    <div class="divider"></div>
+
+    <div class="events-list">
+
+      <div class="event-row">
+        <div>
+          <div class="event-day">18</div>
+          <div class="event-month">May</div>
+        </div>
+
+        <div>
+          <div class="event-title">Weekly Chess Night</div>
+          <div class="event-meta">
+            OC0.02 · 7:00PM
+          </div>
+        </div>
+
+        <div class="event-badge">Open</div>
+      </div>
+
+      <div class="event-row">
+        <div>
+          <div class="event-day">26</div>
+          <div class="event-month">May</div>
+        </div>
+
+        <div>
+          <div class="event-title">Warwick Rapid & Blitz Open</div>
+          <div class="event-meta">
+            Westwood Teaching Centre
+          </div>
+        </div>
+
+        <div class="event-badge">Competitive</div>
+      </div>
+
+      <div class="event-row">
+        <div>
+          <div class="event-day">02</div>
+          <div class="event-month">Jun</div>
+        </div>
+
+        <div>
+          <div class="event-title">Beginner Training Session</div>
+          <div class="event-meta">
+            Learn openings and tactics
+          </div>
+        </div>
+
+        <div class="event-badge">Beginner</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+
+    <div class="section-label">Gallery</div>
+    <h2 class="section-title">Life At The Society</h2>
+    <div class="divider"></div>
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item">♔</div>
+      <div class="gallery-item">♕</div>
+      <div class="gallery-item">♖</div>
+      <div class="gallery-item">♘</div>
+      <div class="gallery-item">♗</div>
+      <div class="gallery-item">♙</div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Join Warwick Chess Society</h2>
+    <div class="divider"></div>
+
+    <div class="contact-grid">
+
+      <div class="contact-info">
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-val">
+              University of Warwick Students' Union
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-val">
+              chess@warwick.ac.uk
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <form class="join-form">
+
+        <h3>Become a Member</h3>
+        <p>Fill out the form below to join the society.</p>
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label>Playing Level</label>
+
+          <select>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+            <option>Tournament Player</option>
+          </select>
+        </div>
+
+        <button class="form-submit">
+          Submit Application
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+  <div class="footer-logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg" alt="">
+    <span>Warwick Chess Society</span>
+  </div>
+
+  <div class="footer-copy">
+    © 2026 Warwick Chess Society. All rights reserved.
+  </div>
+
+</footer>
+
+</body>
+</html>
