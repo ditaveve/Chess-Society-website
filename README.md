@@ -6,7 +6,7 @@ Built entirely in HTML.
 
 ## Live Site
 
-https://ditaveve.github.io/warwick-chess-society/
+https://ditaveve.github.io/Chess-Society-website/
 
 ## Includes
 
